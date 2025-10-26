@@ -42,7 +42,7 @@
 -%}
 
 <div ref="priceContainer">
-  {% if show_sale_price_first == false and show_compare_price %}
+  {% if show_sale_price_first == true and show_compare_price %}
     <span role="group">
       <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
       <span class="compare-at-price">{{- compare_at_price -}}</span>
@@ -52,16 +52,18 @@
   {% if show_compare_price %}
     <span role="group">
       <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
-      <span class="price">{{ price | default: '&nbsp;' }}</span>
+      <span class="price font-bold">{{ price | default: '&nbsp;' }}</span>
     </span>
   {% else %}
     <span class="price">{{ price | default: '&nbsp;' }}</span>
   {% endif %}
 
-  {% if show_sale_price_first == true and show_compare_price %}
-    <span role="group">
-      <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
-      <span class="compare-at-price">{{- compare_at_price -}}</span>
+
+  {% if show_compare_price and product.compare_at_price_max > product.price %}
+    {% assign discount = 100 | times: product.price | divided_by: product.compare_at_price_max %}
+    {% assign discount_percentage = 100 | minus: discount %}
+    <span class="text-save">
+      Save {{ discount_percentage | round }}%
     </span>
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}

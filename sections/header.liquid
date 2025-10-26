@@ -422,6 +422,7 @@
     .header__row--top:not(.divider--page-width),
     .header__row--top.divider--page-width .header__columns {
       border-bottom-width: var(--border-bottom-width-mobile);
+      border-bottom: 1px solid #F2F2F2;
     }
   }
 
@@ -525,6 +526,13 @@
 
       .header-logo {
         grid-area: center;
+      }
+
+      .header-logo{
+        color: #ed1a1a;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 24px;
       }
 
       &:not(:has(header-actions)) .search-action {

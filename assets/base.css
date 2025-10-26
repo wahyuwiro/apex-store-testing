@@ -576,6 +576,8 @@ p:empty {
   margin: 0;
   padding: 0;
   list-style: none;
+  display: flex;
+  gap: 8px;
 }
 
 .skip-to-content-link {
@@ -749,6 +751,9 @@ body,
   text-transform: var(--font-paragraph--case);
   -webkit-font-smoothing: antialiased;
   color: var(--color, var(--color-foreground));
+  @media screen and (max-width: 749px) {
+    font-size: var(--font-paragraph--size-mobile);
+  }
 }
 
 /* Ensure inputs with type presets maintain minimum 16px on mobile to prevent iOS zoom */
@@ -779,6 +784,82 @@ h1,
   text-transform: var(--font-h1--case);
   color: var(--color, var(--font-h1-color));
 }
+
+.text-save {
+  background-color: #ffe535;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 4px;
+}
+.font-bold {
+  font-weight: bold;
+}
+
+.add-description details {
+  /* border-bottom: 1px solid #eee;
+  padding: 1rem 0; */
+  padding: 4px 8px;
+  border: 1px solid #E5E5E5;
+  border-bottom-width: 5px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.add-description summary {
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.add-description summary::after {
+  content: "+";
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+  background: #ffe535;
+  color: #000; /* Make sure text is readable */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s, background 0.3s;
+}
+
+details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.variant-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 0 16px;
+}
+.thumbnail-button {
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+.thumbnail-button:hover {
+  border-color: #000;
+}
+.thumbnail-button.is-active {
+  border-color: #000;
+}
+.thumbnail-button img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  display: block;
+}
+
 
 @media screen and (max-width: 1200px) {
   input.h1.h1,
@@ -1295,7 +1376,8 @@ button.shopify-payment-button__button--unbranded {
   border: none;
   font-family: var(--font-paragraph--family);
   font-style: var(--font-paragraph--style);
-  font-size: var(--font-paragraph--size);
+  /* font-size: var(--font-paragraph--size); */
+  font-size: 16px;
   line-height: var(--font-paragraph--line-height);
   margin-block: 0;
   transition: color var(--animation-speed) var(--animation-easing),
@@ -1306,6 +1388,10 @@ button.shopify-payment-button__button--unbranded {
   box-shadow: inset 0 0 0 var(--button-border-width) var(--button-border-color);
   padding-block: var(--button-padding-block);
   padding-inline: var(--button-padding-inline);
+  @media screen and (max-width: 750px) {
+    background-color: #fedb36;
+    color: #000000;
+  }
 }
 
 .button {
@@ -2332,6 +2418,13 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
     justify-content: var(--vertical-alignment-mobile);
   }
 
+  .compare-at-price {
+    font-size: 20px;
+  }
+  .price {
+    font-size: 22px;
+    font-weight: bold;
+  }
   .layout-panel-flex--row:not(.mobile-column) {
     flex-wrap: var(--flex-wrap-mobile);
 

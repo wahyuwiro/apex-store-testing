@@ -6,6 +6,13 @@ bin-release/
 
 # Other files and folders
 .settings/
+/locales/
+*.log
+*.tmp
+*.bak
+*.swp
+templates/*.json
+templates/*.xml
 
 # Executables
 *.swf

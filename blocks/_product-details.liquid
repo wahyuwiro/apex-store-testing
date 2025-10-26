@@ -24,9 +24,25 @@
         {{- product.title }}
       </a>
     </div>
+    <div class="add-description" style="--details-position: flex-start; order:2">
+      {% assign metafields = product.metafields.custom %}
+      
+      {% for metafield in metafields %}
+        {% assign metafield_key = metafield[0] %}
+        {% assign metafield_value = metafield[1] | metafield_tag %}
+        
+        {% if metafield_value != blank %}
+          <details>
+            <summary>{{ metafield_key | replace: '_', ' ' | capitalize }}</summary>
+            <div>{{ metafield_value }}</div>
+          </details>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+
     {% content_for 'blocks' %}
   {% endcapture %}
-
   {% render 'group', children: children, settings: block_settings, shopify_attributes: block.shopify_attributes %}
 </div>
 
@@ -35,6 +51,11 @@
   @media screen and (max-width: 749px) {
     .product-information.section--page-width .product-details > .group-block {
       padding-inline: 0;
+    }
+    .product-details .text-block h1 {
+      font-size: 42px;
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
 
@@ -110,11 +131,11 @@
       "type": "variant-picker"
     },
     {
-      "type": "buy-buttons"
-    },
-    {
       "type": "product-description"
     },
+    {
+      "type": "buy-buttons"
+    },   
     {
       "type": "review"
     },

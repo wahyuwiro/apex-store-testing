@@ -420,6 +420,57 @@
     </ul>
   {% endif %}
 
+<div class="variant-thumbnails">
+  <ul class="media-thumbnails list-unstyled">
+    {% for variant in product.variants %}
+      {% if variant.featured_media %}
+        <li class="thumbnail">
+          <button
+            type="button"
+            class="thumbnail-button"
+            data-variant-id="{{ variant.id }}"
+            data-media-id="{{ variant.featured_media.id }}"
+          >
+            {% render 'product-media', media: variant.featured_media, sizes: '(max-width: 100px) 100px, 100px' %}
+          </button>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Use event delegation — this survives Shopify’s DOM replacements
+  document.addEventListener('click', (e) => {
+    const button = e.target.closest('.variant-thumbnails .thumbnail-button');
+    if (!button) return; // click wasn’t on a variant thumbnail
+
+    const variantId = button.dataset.variantId;
+    if (!variantId) return;
+
+    // Find the variant input in the current (possibly re-rendered) form
+    const targetInput = document.querySelector(
+      `.variant-picker__form input[data-variant-id="${variantId}"]`
+    );
+
+    if (!targetInput) {
+      console.warn('No matching variant input found for ID:', variantId);
+      return;
+    }
+
+    // Trigger Shopify's internal click handling
+    targetInput.click();
+
+    // Update active thumbnail UI
+    document.querySelectorAll('.thumbnail-button').forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+  });
+});
+</script>
+
+
+
   {%- if block_settings.zoom -%}
     <zoom-dialog
       ref="zoomDialogComponent"
